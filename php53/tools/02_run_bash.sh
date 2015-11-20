@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 cd ..
-docker exec -it pshop bash
+docker exec -it php53 bash
 

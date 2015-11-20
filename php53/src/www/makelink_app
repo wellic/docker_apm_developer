@@ -1,11 +1,12 @@
 #!/bin/bash
 
 set -e 
+SCRIPT_DIR=$(dirname "$0")
+cd "$SCRIPT_DIR"
+SCRIPT_DIR=$PWD
 
-SRC="$1"
+SRC=${1:-test}
 
-echo $PWD
-cd "$PWD"
 APP="app"
 
 if [ ! -e "$APP" -o -L "$APP" ]; then  
@@ -21,3 +22,4 @@ fi
 
 echo "Error. Linked directory '$APP' exists not as symlink"
 exit 1
+

@@ -21,7 +21,7 @@ mysql:
 
 
 # see details https://hub.docker.com/_/mysql/
-#        MYSQL_DATABASE: "prestashop"
+        MYSQL_DATABASE: "prestashop"
 #        MYSQL_USER:
 #        MYSQL_PASSWORD:
 #        MYSQL_ALLOW_EMPTY_PASSWORD:

@@ -1,6 +1,9 @@
 #!/bin/bash
 
 set -e 
+SCRIPT_DIR=$(dirname "$0")
+cd "$SCRIPT_DIR"
+SCRIPT_DIR=$PWD
 
 alltrim() {
  local s=$(echo -e "${1}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
@@ -15,7 +18,7 @@ my_mount() {
   mount | grep "$DST"
 }
 
-./umnt
+"$SCRIPT_DIR/umnt"
 
 file="mnt.cfg"
 while IFS='|' read -r src dst
