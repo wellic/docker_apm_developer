@@ -1,0 +1,27 @@
+
+# Close root directory of local file system
+<Directory />
+    Options FollowSymLinks
+    AllowOverride None
+#    <IfVersion < 2.4 >
+        Deny from all
+#    </IfVersion>
+#    <IfVersion >= 2.4 >
+#        Require all denied
+#    </IfVersion>
+</Directory>
+
+# Clode root directory with development catalogs (sites)
+<Directory /var/www/>
+  #See details http://www.apache.ru/docs/fishki.html#Options
+  Options Indexes FollowSymLinks
+  AllowOverride all
+
+# for compability with old version
+	Order deny,allow
+	Deny from all
+#    <IfVersion >= 2.4 >
+#    	Require all denied
+#    	Require ip 127 172 192.168
+#    </IfVersion>
+</Directory>

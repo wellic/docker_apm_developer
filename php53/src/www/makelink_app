@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e 
+
+SRC="$1"
+
+echo $PWD
+cd "$PWD"
+APP="app"
+
+if [ ! -e "$APP" -o -L "$APP" ]; then  
+  if [ -d "$SRC" -a "$SRC" != "$APP" ]; then  
+    [ -e "$APP" ] &&  rm "$APP"
+    ln -s "$SRC" "$APP"
+    exit 0
+  else
+    echo "Error. Check source directory name: '$SRC'"
+    exit 1
+  fi
+fi
+
+echo "Error. Linked directory '$APP' exists not as symlink"
+exit 1
