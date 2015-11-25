@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e 
+SCRIPT_DIR=$(dirname "$0")
+cd "$SCRIPT_DIR"
+SCRIPT_DIR=$PWD
+
+alltrim() {
+ local s=$(echo -e "${1}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+ echo "$s"
+}
+
+my_mount() {
+  local SRC="$1"
+  local DST="$2"
+  [ ! -d "$DST" ] && mkdir -p "$DST"
+  sudo mount --bind "$SRC" "$DST"
+  mount | grep "$DST"
+}
+
+"$SCRIPT_DIR/umnt"
+
+file="mnt.cfg"
+while IFS='|' read -r src dst
+do
+  src=$(alltrim "$src")
+  dst=$(alltrim "$dst")
+  if [ -e "$src" ]; then
+    printf 'Mount %s -> %s\n' "$src" "$dst"
+    my_mount "$src" "$dst"
+  fi
+done <"$file"
