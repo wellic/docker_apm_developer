@@ -1,0 +1,33 @@
+<VirtualHost *:80>
+  ServerName  ps1612.local
+  ServerAlias *.ps1612.local
+  ServerAdmin name@example.com
+
+  DocumentRoot /var/www/ps1612/public
+
+  <Directory /var/www/ps1612/ >
+    Options Indexes FollowSymLinks
+    AllowOverride all
+
+# for compability with old version
+    Order deny,allow
+    Deny from all
+#    Require all denied
+#    Require ip 127 172 192.168
+  </Directory>
+
+  <Directory /var/www/ps1612/public/ >
+    Options FollowSymLinks
+    AllowOverride All
+
+    AddDefaultCharset utf-8
+    DirectoryIndex index.php
+    Order allow,deny
+    Allow from all
+
+    <IfModule mod_rewrite.c>
+        RewriteEngine On
+    </IfModule>
+  </Directory>
+
+</VirtualHost>

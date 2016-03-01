@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -e 
+SCRIPT_DIR=$(dirname "$0")
+cd "$SCRIPT_DIR"
+SCRIPT_DIR=$PWD
+
+alltrim() {
+ local s=$(echo -e "${1}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+ echo "$s"
+}
+
+my_umount() {
+  local MNT="$1"
+  local SHOW_DEBUG_INFO=$2
+  [ "SHOW_DEBUG_INFO" != 0 ] && echo "Umount: $MNT"
+
+  if mount | grep -q "$MNT"; then sudo umount "$MNT"; fi;
+}
+
+file="mnt.cfg"
+while IFS='|' read -r src dst
+do
+  src=$(alltrim "$src")
+  echo $src
+  if [ -e "$src" ]; then
+    my_umount $src 1
+  fi
+done <"$file"
